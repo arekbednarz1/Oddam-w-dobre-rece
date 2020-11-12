@@ -3,6 +3,7 @@ package pl.arekbednarz.oddam.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.arekbednarz.oddam.entity.Institution;
@@ -29,8 +30,12 @@ public class HomeController {
         System.out.println(homeService.getAllInstitutions());
         return homeService.getAllInstitutions();
     }
-    @RequestMapping("/")
+    @GetMapping("/")
     public String homeAction(Model model){
+        int numOfSacks = homeService.getNumberOfSacks();
+        int numOfGifts = homeService.countGifts();
+        model.addAttribute("numOfSacks", numOfSacks);
+        model.addAttribute("numOfGifts", numOfGifts);
         return "index";
     }
 

@@ -42,7 +42,7 @@
 <section class="stats">
     <div class="container container--85">
         <div class="stats--item">
-            <em>13</em>
+            <em>${numOfSacks}</em>
 
             <h3>Oddanych worków</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
@@ -50,7 +50,8 @@
         </div>
 
         <div class="stats--item">
-            <em>5</em>
+            <em>${numOfGifts}</em>
+            
             <h3>Przekazanych darów</h3>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas
                 quam.</p>
@@ -153,9 +154,9 @@
     <div class="bottom-line">
         <span class="bottom-line--copy">Copyright &copy; 2018</span>
         <div class="bottom-line--icons">
-            <a href="#" class="btn btn--small"><img src="images/icon-facebook.svg"/></a> <a href="#"
+            <a href="#" class="btn btn--small"><img src="../../resources/images/icon-facebook.svg"/></a> <a href="#"
                                                                                             class="btn btn--small"><img
-                src="images/icon-instagram.svg"/></a>
+                src="../../resources/images/icon-instagram.svg"/></a>
         </div>
     </div>
 </footer>
