@@ -3,6 +3,7 @@ package pl.arekbednarz.oddam.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -39,6 +40,7 @@ public class Donation {
 
     private String zipCode;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
 
     private LocalTime pickUpTime;

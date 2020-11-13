@@ -6,4 +6,6 @@ import pl.arekbednarz.oddam.entity.Category;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category,Long> {
+    Category findFirstById(Long categoryId);
+
 }
