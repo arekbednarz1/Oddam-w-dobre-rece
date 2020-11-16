@@ -7,4 +7,6 @@ import pl.arekbednarz.oddam.entity.Institution;
 @Repository
 public interface InstitutionRepository extends JpaRepository<Institution, Long> {
 
+    public Institution getByName(String name);
+
 }

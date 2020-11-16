@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.arekbednarz.oddam.entity.Category;
 import pl.arekbednarz.oddam.entity.Donation;
+import pl.arekbednarz.oddam.entity.Institution;
 import pl.arekbednarz.oddam.repository.CategoryRepository;
+import pl.arekbednarz.oddam.repository.DonationRepository;
+import pl.arekbednarz.oddam.repository.InstitutionRepository;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -15,6 +18,13 @@ public class DonationService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private InstitutionRepository institutionRepository;
+
+
+    @Autowired
+    private DonationRepository donationRepository;
 
 
     public Category getCategoryById(Long categoryId) {
@@ -39,5 +49,17 @@ public class DonationService {
     }
 
 
-    
+    public List<Institution> getAllInstitutions() {
+        return institutionRepository.findAll();
+    }
+
+
+    public Institution getByName(String institution){
+        return institutionRepository.getByName(institution);
+    }
+
+
+    public void save(Donation donation) {
+        donationRepository.save(donation);
+    }
 }

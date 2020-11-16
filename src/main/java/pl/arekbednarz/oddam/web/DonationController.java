@@ -1,14 +1,16 @@
 package pl.arekbednarz.oddam.web;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.arekbednarz.oddam.entity.Category;
 import pl.arekbednarz.oddam.entity.Donation;
+import pl.arekbednarz.oddam.entity.Institution;
 import pl.arekbednarz.oddam.service.DonationService;
 
-import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -23,35 +25,35 @@ public class DonationController {
         this.donationService = donationService;
     }
 
+
+
+    @ModelAttribute("donation")
+    public Donation donationForm() {
+        return new Donation();
+    }
+
+    @ModelAttribute("institutions")
+    public List<Institution> addInstitutions() {
+        return donationService.getAllInstitutions();
+    }
+
     @ModelAttribute("categories")
-    List<Category> populateCategories() {
+    public List<Category> addCategories() {
         return donationService.getAllCategories();
     }
 
 
-    @GetMapping(value = "/add-step-1")
-    public String donationAddFormStep1Show(Model model, HttpSession session) {
-        Donation donationInSession = donationService.getCurrentDonation(session);
-        if (donationInSession == null) {
-            donationInSession = new Donation();
-        }
-        model.addAttribute("donationInSession", donationInSession);
-        return "donationAdd1";
+    @GetMapping
+    public String addDonation() {
+        return "donation/donationAdd";
     }
 
-    @PostMapping(value = "/add-step-1")
-    public String donationAddFormStep1Process(@RequestParam(value = "category", required = false) Long[] categoriesChecked, HttpSession session, Model model) {
-        if(categoriesChecked == null || categoriesChecked.length == 0) {
-            model.addAttribute("errorNothingChecked", "wybierz kategorię");
-            return "donationAdd1";
-        }
-        Donation donationInSession = donationService.getCurrentDonation(session);
-        donationService.setCategories(categoriesChecked, donationInSession);
-        model.addAttribute("donationInSession", donationInSession);
-        return "redirect:add-step-2";
-    }
-
+    @PostMapping
+    String donateFormAction(@Valid @ModelAttribute("donation") Donation donation, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) return "donation/donationAdd";
+        donationService.save(donation);
+        return "donation/donationConfirm";
     }
 
 
-
+}
